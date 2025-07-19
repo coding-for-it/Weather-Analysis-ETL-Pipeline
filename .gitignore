@@ -1,0 +1,12 @@
+# Ignore environment and cache
+.env
+venv/
+__pycache__/
+*.pyc
+
+# Ignore data and logs
+data/
+*.log
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
