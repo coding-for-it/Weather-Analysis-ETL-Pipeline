@@ -18,15 +18,15 @@ A Python-based ETL pipeline that extracts real-time weather data from the OpenWe
 
 1. **Clone the repo:**
    ```bash
-   git clone https://github.com/your-username/weather-etl-pipeline.git
-   cd weather-etl-pipeline
+   https://github.com/coding-for-it/Weather-Analysis-ETL-Pipeline.git
+   cd Weather-Analysis-ETL-Pipeline
 
 2. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
 
 3. **Setup environment variables:**
-   ## add your API key and DB credentials.
+   #add your API key and DB credentials.
 
 4. **Run the pipeline:**
    ```bash
