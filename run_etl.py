@@ -3,6 +3,8 @@ from src.transform import transform_weather_data
 from src.load import load_to_postgres
 from src.utils import log
 
+import os
+
 def run_etl():
     log("Starting ETL Pipeline...")
 
@@ -38,20 +40,28 @@ def run_etl():
     }
 
     all_weather_data = []
+
     for state, loc in state_city_map.items():
-        record = fetch_weather_data(loc["city"], loc["country"])
+        record = fetch_weather_data(loc["city"], loc["country"], state)  # Passed state to function
         if record:
-            record["state"] = state
             all_weather_data.append(record)
+        else:
+            log(f"No data fetched for {state} ({loc['city']})")
+
+    os.makedirs("data", exist_ok=True)
 
     save_weather_data(all_weather_data)
-    log("Extraction complete.")
+    log(f"Extraction complete. Records fetched: {len(all_weather_data)}")
+
+    if not os.path.exists("data/weather.csv"):
+        log("'data/weather.csv' not found after extraction. Aborting pipeline.")
+        return
 
     transform_weather_data()
     log("Transformation complete.")
 
     load_to_postgres()
-    log("Loading complete.")
+    log("Loading to PostgreSQL complete.")
 
     log("ETL Pipeline executed successfully!")
 
